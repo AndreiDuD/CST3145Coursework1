@@ -6,7 +6,13 @@ new Vue({
             showProduct: true,
             order: {
                 firstName: '',
-                lastName: ''
+                lastName: '',
+                address: '',
+                postcode: '',
+                city: '',
+                method: 'Home',
+                senGift: 'Send as a gift',
+                dontSendGift: 'Do not send as a gift'
             },
             product: {
                 id: 01,
@@ -24,7 +30,8 @@ new Vue({
         },
         showCheckout() {
             this.showProduct = this.showProduct ? false : true;
-        }
+        },
+        submitForm() {alert('Order submitted!')}
     },
     computed: {
         cartItemCount: function() {
