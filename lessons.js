@@ -20,7 +20,8 @@ new Vue({
                 location: 'London',
                 price: 100,
                 image: './Images/maths.png',
-                availableInventory: 5
+                availableInventory: 10,
+                rating: 3
             },
         cart: []
     },
@@ -31,15 +32,28 @@ new Vue({
         showCheckout() {
             this.showProduct = this.showProduct ? false : true;
         },
-        submitForm() {alert('Order submitted!')}
+        submitForm() {
+            alert('Order submitted!')
+        },
+        canAddToCart (product) {
+            return product.availableInventory > this.cartCount(product.id)
+        },
+        cartCount(id) {
+            let count = 0;
+            for(let i=0; i<this.cart.length; i++) {
+            if (this.cart[i] === id) {
+                count++;
+            }
+        }
+        return count;
     },
-    computed: {
+/*    computed: {
         cartItemCount: function() {
             return this.cart.length || '';
         },
         canAddToCArt: function() {
             return this.product.availableInventory > this.cartItemCount;
         }
-    },
+    },*/
 });
 
