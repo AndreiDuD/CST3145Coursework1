@@ -1,12 +1,14 @@
 // Vue Object holding all the information that is displayed in the html {{}} tags
 new Vue({
-        el: "#Products",
+        el: "#app",
         data: {
-            sitename: "After School Club",
             showProduct: true,
+            products: products,
             order: {
                 firstName: '',
                 lastName: '',
+                phone: '',
+                email: '',
                 address: '',
                 postcode: '',
                 city: '',
@@ -14,20 +16,12 @@ new Vue({
                 senGift: 'Send as a gift',
                 dontSendGift: 'Do not send as a gift'
             },
-            product: {
-                id: 01,
-                title: 'Maths',
-                location: 'London',
-                price: 100,
-                image: './Images/maths.png',
-                availableInventory: 10,
-                rating: 3
-            },
         cart: []
     },
     methods: {
-        addToCart: function() {
-            this.cart.push(this.product.id);
+        addToCart: function(product) {
+            this.cart.push(product.id);
+            product.availableInventory--;
         },
         showCheckout() {
             this.showProduct = this.showProduct ? false : true;
@@ -36,17 +30,23 @@ new Vue({
             alert('Order submitted!')
         },
         canAddToCart (product) {
-            return product.availableInventory > this.cartCount(product.id)
+            return product.availableInventory > this.cartItemCount(product.id)
         },
-        cartCount(id) {
+        cartItemCount(id) {
             let count = 0;
-            for(let i=0; i<this.cart.length; i++) {
-            if (this.cart[i] === id) {
-                count++;
+            return count;
+        },
+        sortedProducts() {
+            if(products.length > 0) {
+                let productsArray = products.slice(0);
+            function compare(a, b) {
+                if(a.price > b.price) return 1;
+                if(a.price < b.price) return -1;
+                return 0;
             }
+            return productsArray.sort(compare);
         }
-        return count;
     }
-}
+    }
 });
 
