@@ -46,14 +46,7 @@ new Vue({
             }
         }
         return count;
-    },
-/*    computed: {
-        cartItemCount: function() {
-            return this.cart.length || '';
-        },
-        canAddToCArt: function() {
-            return this.product.availableInventory > this.cartItemCount;
-        }
-    },*/
+    }
+}
 });
 
