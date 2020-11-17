@@ -12,9 +12,10 @@ new Vue({
                 address: '',
                 postcode: '',
                 city: '',
-                method: 'Home',
-                senGift: 'Send as a gift',
-                dontSendGift: 'Do not send as a gift'
+                method: '',
+                gift: '',
+                sendGift: 'Send as gift',
+                dontSendGift: "Don't send as gift"
             },
         cart: []
     },
