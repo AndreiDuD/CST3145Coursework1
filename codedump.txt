@@ -1,0 +1,36 @@
+FORM VALIDATION STUFF VUE
+                address: '',
+                postcode: '',
+                city: '',
+                gift: '',
+                sendGift: 'Send as gift',
+                dontSendGift: "Don't send as gift"
+HTML
+                        <label>City:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="city" value="London"
+                                v-model="order.city">
+                            <label class="form-check-label" for="London">London</label><br>
+
+                            <input class="form-check-input" type="radio" name="city" value="Birmingham"
+                                v-model="order.city">
+                            <label class="form-check-label" for="Birmingham">Birmingham</label><br>
+
+                            <input class="form-check-input" type="radio" name="city" value="Manchester"
+                                v-model="order.city">
+                            <label class="form-check-label" for="Manchester">Manchester</label><br>
+
+                            <input class="form-check-input" type="radio" name="city" value="Bristol"
+                                v-model="order.city">
+                            <label class="form-check-label" for="Bristol">Bristol</label><br>
+
+                            <input class="form-check-input" type="radio" name="city" value="Liverpool"
+                                v-model="order.city">
+                            <label class="form-check-label" for="Liverpool">Liverpool</label><br>
+                            <br>
+                            <input class="form-check-input" type="checkbox" value="option1" v-model="order.gift"
+                                v-bind:true-value="order.sendGift" v-bind:false-value="order.dontSendGift">
+                            <label class="form-check-label" for="inlineCheckbox1">Ship as Gift?</label><br>
+                            <button v-on:click="submitForm">Place Order</button>
+                        </div>
+                        

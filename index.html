@@ -17,12 +17,13 @@
     <div id="app">
         <div class="navbar fixed-top" style="background-color: rgb(255, 255, 255);">
             <h1>After School Club</h1>
-            <button v-on:click="showCheckout" class="btn btn-success">
+            <button v-on:click="showCheckout" class="btn btn-success" id="checkoutButton">
                 {{ this.cart.length }}
                 <span> Checkout </span>
             </button>
         </div>
         <main>
+            <!--When showProducts is TRUE Display products page-->
             <div v-if="showProduct">
                 <div id="productStyle" v-for="product in products">
                     <div>
@@ -51,70 +52,38 @@
                 </div>
             </div>
             <!-- Checkout Page-->
+            <!--When showProducts is FALSE Display checkout page-->
             <div v-else>
-                <form>
-                <div id="Products" class="form-group">
-                    <br>
-                    <br>
-                    <br>
-                    <h2>Checkout</h2>
+                <div id="Products">
+                    <form @submit="checkForm" name="form1">
+                        <br><br><br>
+                        <h2>Checkout</h2>
 
-                    <label>First Name:</label>
-                    <input type="text" class="form-control" placeholder="Enter name" v-model="order.firstName">
-                    <label>Last Name:</label>
-                    <input type="text" class="form-control" placeholder="Enter lastname" v-model="order.lastName">
-                    <label>Phone</label>
-                    <input type="number" class="form-control" placeholder="Enter phone" v-model="order.phone">  
-                    <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Enter email" v-model="order.email">                                       
-                    <label>Address Line</label>
-                    <input type="text" class="form-control" placeholder="Enter address" v-model="order.address">
-                    <label>Postcode</label>
-                    <input type="text" class="form-control" placeholder="Enter postcode" v-model="order.postcode">
-<br>
-                    <label>City:</label>
-                    <div class="form-check" >
-                        <input class="form-check-input" type="radio" name="city" value="London" v-model="order.city">
-                        <label class="form-check-label" for="London">London</label><br>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <label for="name">Name:</label>
+                                <input class="form-control" placeholder="First name" v-model="name" id="name">
+                            </div>
 
-                        <input class="form-check-input" type="radio" name="city" value="Birmingham" v-model="order.city">
-                        <label class="form-check-label" for="Birmingham">Birmingham</label><br>
-
-                        <input class="form-check-input" type="radio" name="city" value="Manchester" v-model="order.city">
-                        <label class="form-check-label" for="Manchester">Manchester</label><br>
-
-                        <input class="form-check-input" type="radio" name="city" value="Bristol" v-model="order.city">
-                        <label class="form-check-label" for="Bristol">Bristol</label><br>
-
-                        <input class="form-check-input" type="radio" name="city" value="Liverpool" v-model="order.city">
-                        <label class="form-check-label" for="Liverpool">Liverpool</label><br>
-<br>
-                        <input class="form-check-input" type="checkbox"  value="option1" 
-                        v-model="order.gift" v-bind:true-value="order.sendGift" v-bind:false-value="order.dontSendGift">
-                        <label class="form-check-label" for="inlineCheckbox1">Ship as Gift?</label>
-<br>
-<br>
-                        <input class="form-check-input" type="radio" name="method" value="Home" v-model="order.method">
-                        <label class="form-check-label" for="home">Home</label><br>   
-                        <input class="form-check-input" type="radio" name="method" value="Business" v-model="order.method">
-                        <label class="form-check-label" for="Business">Business</label><br>                     
-<br>                        
-                        <button v-on:click="submitForm">Place Order</button>
-                    </div>
-
-                    <h2>Order Information</h2>
-                    <p>First Name: {{order.firstName}}</p>
-                    <p>Last Name: {{order.lastName}}</p>
-                    <p>Phone: {{order.phone}}</p>
-                    <p>Email: {{order.email}}</p>
-                    <p>Address Line: {{order.address}}</p>
-                    <p>Post code: {{order.postcode}}</p>
-                    <p>City : {{order.city}}</p>
-                    <p>gift: {{order.gift}}</p>
-                    <p>Method: {{order.method}}</p>
+                            <div class="col-md-1">
+                                <label>Phone:</label>
+                                <input class="form-control" placeholder="Enter phone" v-model="phone" type="text" id="phone">
+                            </div>
+                            <br><button type="submit" class="btn btn-primary" v-on:click="allLetter()">Place Order</button><br><br>
+                        </div>
                 </div>
-            </form>
+                <p v-if="errors.length">
+                    <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                </ul>
+                </p>
+
+                <h2>Order Information</h2>
+                <p>Name: {{name}}</p>
+                <p>Phone: {{phone}}</p>
             </div>
+            </form>
         </main>
     </div>
 
