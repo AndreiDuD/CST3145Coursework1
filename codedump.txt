@@ -34,3 +34,56 @@ HTML
                             <button v-on:click="submitForm">Place Order</button>
                         </div>
                         
+                                // checkForm: function (e) {
+        //     this.errors = [];
+        //     var letters = /^[A-Za-z]+$/;
+
+        //     if (!this.name.value.match(letters)) {
+        //         return this.errors.push('Name requires letters.');
+        //     }
+        //     if (!this.phone) {
+        //         return this.errors.push('Phone required numbers only.');
+        //     }
+        //     e.preventDefault();
+        //     console.log(e);
+        // },
+        // validateForm() {
+        //     var name = document.getElementById("name").value;
+        //     var phone = document.getElementById("phone").value;
+        //     var letters = /^[A-Za-z]+$/;
+
+        //     if (name.length <5 || name.value != letters || name.value === "") {
+        //         alert("Not a valid name!")
+        //         return false;
+        //     }
+        //     if (isNaN(phone) || phone.length != 10) {
+        //         alert("Not a valid phone number!")
+        //         return false;
+        //     }
+        //     alert("Form Submitted!")
+        //     return true;
+        // }
+        // allLetter(inputtxt) {
+        //     var letters = /^[A-Za-z]+$/;
+        //     this.errors = [];
+        //     if (inputtxt.match(letters)) {
+        //         this.errors.push('Name ok.');
+        //         return true;
+        //     }
+        //     else {
+        //         alert('Please input alphabet characters only');
+        //         return false;
+        //     }
+        // },
+        // allNumbers(inputnum) {
+        //     var numbers = /^[0][1-9]\d{10}$/g;
+        //     this.errors = [];
+        //     if (inputnum.value.match(numbers)) {
+        //         this.errors.push('Namber ok.');
+        //         return true;
+        //     }
+        //     else {
+        //         alert('Please input numbers only 11 digits');
+        //         return false;
+        //     }
+        // },

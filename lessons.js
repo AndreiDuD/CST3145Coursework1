@@ -4,73 +4,133 @@ new Vue({
     data: {
         showProduct: true,
         products: products,
+
         // FORM
-        errors: [],
-        name: null,
-        movie: null,
-        phone: null,
+        form: {
+            name: null,
+            phone: null
+        },
+
+        //Checkout
         cart: [],
+        errors: [],
     },
+
+    computed: {
+        //*********************************************************** */
+        //Sort Price
+        //*********************************************************** */
+
+        sortedAscendingPrice() {
+            function compare(a, b) {
+                if (a.price > b.price) return 1;
+                if (a.price < b.price) return -1;
+                return 0;
+            }
+            return this.products.sort(compare);
+        },
+        sortedDescendingPrice() {
+            function compare(a, b) {
+                if (a.price < b.price) return 1;
+                if (a.price > b.price) return -1;
+                return 0;
+            }
+            return this.products.sort(compare);
+        },
+        //*********************************************************** */
+        //Sort Title
+        //*********************************************************** */
+        sortedAscendingTitle() {
+            function compare(a, b) {
+                if (a.title > b.title) return 1;
+                if (a.title < b.title) return -1;
+                return 0;
+            }
+            return this.products.sort(compare);
+        },
+        sortedDescendingTitle() {
+            function compare(a, b) {
+                if (a.title < b.title) return 1;
+                if (a.title > b.title) return -1;
+                return 0;
+            }
+            return this.products.sort(compare);
+        },
+        //*********************************************************** */
+        //Sort Availability
+        //*********************************************************** */
+        sortedAscendingAvailability() {
+            function compare(a, b) {
+                if (a.availableInventory > b.availableInventory) return 1;
+                if (a.availableInventory < b.availableInventory) return -1;
+                return 0;
+            }
+            return this.products.sort(compare);
+        },
+        sortedDescendingAvailability() {
+            function compare(a, b) {
+                if (a.availableInventory < b.availableInventory) return 1;
+                if (a.availableInventory > b.availableInventory) return -1;
+                return 0;
+            }
+            return this.products.sort(compare);
+        },
+    },
+
     methods: {
+        // Add product to cart array and substract availableInventory
         addToCart: function (product) {
-            this.cart.push(product.id);
+            this.cart.push(product);
             product.availableInventory--;
         },
+        //Remove item from checkout and add availableInventory back
+        removeFromCheckout: function (item) {
+            this.cart.pop(item);
+            item.availableInventory++;
+        },
+        //Display main page if showProduct is true
         showCheckout() {
             this.showProduct = this.showProduct ? false : true;
         },
         canAddToCart(product) {
-            return product.availableInventory > this.cartItemCount(product.id)
+            return product.availableInventory > this.cartItemCount(product)
         },
-        cartItemCount(id) {
+        // Checkout counter 
+        cartItemCount() {
             let count = 0;
             return count;
         },
-        sortedProducts() {
-            if (products.length > 0) {
-                let productsArray = products.slice(0);
-                function compare(a, b) {
-                    if (a.price > b.price) return 1;
-                    if (a.price < b.price) return -1;
-                    return 0;
-                }
-                return productsArray.sort(compare);
-            }
-        },
+
+        //*********************************************************** */
+        //                      FORM VALIDATION
+        //*********************************************************** */
+
         checkForm: function (e) {
             this.errors = [];
 
-            if (!this.name) {
-                this.errors.push('Name required.');
+            if (!name) {
+                this.errors.push("Name required.");
+            } else if (!this.validName(this.name)) {
+                this.errors.push('Valid name required.');
             }
-            if (!this.phone) {
-                this.errors.push('Phone required.');
+            if (!phone) {
+                this.errors.push("Phone required.");
+            } else if (!this.validPhone(this.phone)) {
+                this.errors.push('Valid phone required.');
+            }
+            if (!this.errors.length) {
+                return true;
             }
             e.preventDefault();
+            console.log(e);
         },
-        allLetter(inputtxt) {
-            var letters = /^[A-Za-z]+$/;
-            this.errors = [];
-            if (inputtxt.match(letters)) {
-                this.errors.push('Name ok.');
-                return true;
-            }
-            else {
-                alert('Please input alphabet characters only');
-                return false;
-            }
+        validName: function (name) {
+            var re = /^[A-Za-z]+$/g;
+            return re.test(name);
         },
-        allNumbers(inputnum) {
-            var numbers = /^[0][1-9]\d{11}$|^[1-9]\d{11}$/g;
-            this.errors = [];
-            if (inputnum.value.match(numbers)) {
-                this.errors.push('Namber ok.');
-                return true;
-            }
-            else {
-                alert('Please input numbers only 11 digits');
-                return false;
-            }
+        validPhone: function (phone) {
+            var re = /((\+44(\s\(0\)\s|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/g;
+            return re.test(phone);
         },
     }
 });
